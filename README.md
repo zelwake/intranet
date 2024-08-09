@@ -2,7 +2,7 @@
 
 ## `root`
 
-Zde se nachází soubor `start_services.sh`, který je shell script a je zodpovědný za spuštění všech serverů. Pokud dojde k jeho změně, je třeba nechat stáhnout novou verzi do raspberry přes git a rebootnou ho. [<sup>1</sup>](https://github.com/zelwake/intranet#1-jak-nahr%C3%A1t-novou-verzi-k%C3%B3du-na-raspberry-a-spustit-ho)
+Zde se nachází soubor `start_services.sh`, který je shell script a je zodpovědný za spuštění všech serverů. Pokud dojde k jeho změně, je třeba nechat stáhnout novou verzi do raspberry přes git a rebootnou ho. [<sup>1</sup>](https://github.com/zelwake/intranet#jak-nahr%C3%A1t-novou-verzi-k%C3%B3du-na-raspberry-a-spustit-ho)
 
 Pokud budu přidávat nový server, je nutné aby se startoval pomocí příkazu `nohup příkaz-nutný-ke-spuštění-serveru &`.
 
@@ -25,7 +25,7 @@ Do budoucna možná udělám objekt nebo array a bude se to dynamicky tahat z ni
 
 Po spuštění vypíše adresu na které běží spolu s portem, a to buď 8080 v případě dev serveru, nebo 80 v případě nasazení.
 
-## Vedlejší projekty [<sup>2</sup>](https://github.com/zelwake/intranet#2-kam-p%C5%99id%C3%A1vat-nov%C3%A9-projekty)
+## Vedlejší projekty [<sup>2</sup>](https://github.com/zelwake/intranet#kam-p%C5%99id%C3%A1vat-nov%C3%A9-projekty)
 
 ### `kucharka`
 
