@@ -1,0 +1,27 @@
+{
+  "name": "intranet",
+  "version": "1.0.0",
+  "description": "Jednoduchý intranet na domácí projekty",
+  "keywords": [],
+  "main": "server.js",
+  "scripts": {
+    "dev": "npx nodemon server.js",
+    "start": "set \"NODE_ENV=production\" && npx nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zelwake/intranet.git"
+  },
+  "engines": {
+    "node": "20.16.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0",
+    "intranet": "file:",
+    "nodemon": "^3.1.4"
+  }
+}
