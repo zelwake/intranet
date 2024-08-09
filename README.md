@@ -2,7 +2,7 @@
 
 ## `root`
 
-Zde se nachází soubor `start_services.sh`, který je shell script a je zodpovědný za spuštění všech serverů. Pokud dojde k jeho změně, je třeba nechat stáhnout novou verzi do raspberry přes git a rebootnou ho. [<sup>1</sup>](https://github.com/zelwake/intranet#jak-nahr%C3%A1t-novou-verzi-k%C3%B3du-na-raspberry-a-spustit-ho)
+Zde se nachází soubor `start_services.sh`, který je shell script a je zodpovědný za spuštění všech serverů. Pokud dojde k jeho změně, je třeba nechat stáhnout novou verzi do raspberry přes git, provést příkaz `chmod +x /home/admin/intranet/start_services.sh` a rebootnou ho. [<sup>1</sup>](https://github.com/zelwake/intranet#jak-nahr%C3%A1t-novou-verzi-k%C3%B3du-na-raspberry-a-spustit-ho)
 
 Pokud budu přidávat nový server, je nutné aby se startoval pomocí příkazu `nohup příkaz-nutný-ke-spuštění-serveru &`.
 
