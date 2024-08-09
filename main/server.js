@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.static("public"));
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/home.html");
 });
 
@@ -14,10 +14,19 @@ const port = process.env.NODE_ENV == "production" ? 80 : 8080;
 const ipAddress = result;
 const httpAddress = `http://${ipAddress}`;
 
-// app.use(
-//   "/kucharka",
-//   createProxyMiddleware({ target: `${httpAddress}:3000`, changeOrigin: true })
-// );
+app.use(
+  "/kucharka",
+  createProxyMiddleware({ target: `${httpAddress}:3000`, changeOrigin: true })
+);
+
+app.use(
+  "/_next",
+  createProxyMiddleware({
+    target: `${httpAddress}:3000/_next`,
+    changeOrigin: true,
+  })
+);
+
 // app.use(
 //   "/python",
 //   createProxyMiddleware({ target: `${httpAddress}:5000`, changeOrigin: true })

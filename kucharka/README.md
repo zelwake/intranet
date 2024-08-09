@@ -24,4 +24,4 @@
 
 ## Databáze
 
-Běží přes docker pomocí docker-compose. Stačí napsat `docker-compose up -d`, všechno se stáhne a spustí. Proměnné pak přehodit do `.env` souboru
+Běží přes docker pomocí docker-compose. Stačí napsat `docker-compose up -d`, všechno se stáhne a spustí. Proměnné pak napsat do `.env` souboru `DATABASE_URL="postgresql://user:password@localhost:5432/database?schema=public"`
