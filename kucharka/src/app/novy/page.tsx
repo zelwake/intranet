@@ -1,6 +1,7 @@
 import { createRecipe } from "@/utils/database/createRecipe";
 import { Metadata } from "next";
 import Header from "../ui/Sections/Header";
+import SelectTags from "./ui/SelectTags";
 import SubmitButton from "./ui/SubmitButton";
 import TextInput from "./ui/TextInput";
 import TextareaInput from "./ui/TextareaInput";
@@ -20,6 +21,8 @@ export default function Novy() {
         <TextInput name="title" text="Název" />
 
         <TextareaInput name="content" text="Postup" />
+
+        <SelectTags />
 
         <SubmitButton />
       </form>

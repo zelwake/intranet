@@ -5,7 +5,10 @@ export async function createRecipe(formData: FormData) {
   console.log(formData);
 
   await new Promise((resolve) =>
-    setTimeout(() => resolve(console.log("finished wait")), 1500)
+    setTimeout(
+      () => resolve(console.log("finished wait in createRecipe function")),
+      1500
+    )
   );
 
   return 1;
