@@ -14,7 +14,47 @@ datasource db {
 }
 
 model Recipe {
-  id      Int    @id @default(autoincrement())
-  title   String @db.VarChar(255)
-  content String @db.Text
+  id                 Int    @id @default(autoincrement())
+  title              String @db.VarChar(255)
+  content            String @db.Text
+  photo_url          String
+  totalTimeInMinutes Int
+
+  ingredientToRecipe IngredientToRecipe[]
+  TagToRecipe        TagToRecipe[]
+}
+
+model Ingredient {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  ingredientToRecipe IngredientToRecipe[]
+}
+
+model IngredientToRecipe {
+  recipeId             Int
+  ingredientId         Int
+  ingredientAmount     Int
+  ingredientAmountType String
+
+  recipe     Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@id([recipeId, ingredientId])
+}
+
+model Tag {
+  id          Int           @id @default(autoincrement())
+  name        String
+  TagToRecipe TagToRecipe[]
+}
+
+model TagToRecipe {
+  tagId    Int
+  recipeId Int
+
+  tag    Tag    @relation(fields: [tagId], references: [id])
+  recipe Recipe @relation(fields: [recipeId], references: [id])
+
+  @@id([tagId, recipeId])
 }
