@@ -5,13 +5,10 @@ export type TextInputProps = {
 
 export default function TextInput({ text, name }: TextInputProps) {
   return (
-    <label className="flex items-center justify-start gap-3">
-      <p className="text-2xl">{text}</p>
+    <label className="flex flex-col items-start justify-start">
+      <p>{text}</p>
 
-      <input
-        name={name}
-        className="min-w-72 py-2 px-4 outline-none rounded-e-md"
-      />
+      <input name={name} className="w-96 py-2 px-4 outline-none" required />
     </label>
   );
 }
