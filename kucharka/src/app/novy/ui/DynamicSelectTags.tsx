@@ -1,15 +1,13 @@
 "use client";
 
 import { Tag } from "@prisma/client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type DynamicSelectTagsProps = { tags: Tag[] };
 
 export default function DynamicSelectTags({ tags }: DynamicSelectTagsProps) {
   const [dynamicList, setDynamicList] = useState(tags);
   const newTagRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => console.log(dynamicList), [dynamicList]);
 
   return (
     <>
