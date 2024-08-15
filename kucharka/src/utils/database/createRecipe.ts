@@ -13,7 +13,7 @@ const schema = z.object({
     .string({ invalid_type_error: "Neplatný text popisu" })
     .min(20, "Popis musí obsahovat nejméně 20 znaků"),
   tags: z.string({ invalid_type_error: "Neplatný typ tagu" }).array(),
-  totalTimeInMinutes: z
+  totalTimeInMinutes: z.coerce
     .number({
       invalid_type_error: "Musí být číslo",
       required_error: "Musí být vyplněno",
@@ -37,6 +37,7 @@ export async function createRecipe(
     title: formData.get("title"),
     content: formData.get("content"),
     tags: formData.getAll("tags"),
+    totalTimeInMinutes: formData.get("totalTimeInMinutes"),
   });
 
   if (rawFormData.error) {
