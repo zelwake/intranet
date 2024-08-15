@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
@@ -10,21 +11,13 @@ const schema = z.object({
   tags: z.string({ invalid_type_error: "Neplatný typ tagu" }).array(),
 });
 
-type SchemaKeys = keyof z.infer<typeof schema>;
+export type RecipeSchemaKeys = keyof z.infer<typeof schema>;
 
-type RecipeErrors = Partial<Record<SchemaKeys, string[]>>;
+type RecipeErrors = Partial<Record<RecipeSchemaKeys, string[]>>;
 
-export type RecipeFormState =
-  | null
-  | {
-      success: true;
-      message: string;
-      redirectUrl: string;
-    }
-  | {
-      success: false;
-      errors: RecipeErrors;
-    };
+export type RecipeFormState = null | {
+  errors: RecipeErrors;
+};
 
 export async function createRecipe(
   prevState: RecipeFormState,
@@ -38,7 +31,6 @@ export async function createRecipe(
 
   if (parseFormData.error) {
     return {
-      success: false,
       errors: parseFormData.error.flatten().fieldErrors,
     };
   }
@@ -47,9 +39,5 @@ export async function createRecipe(
 
   //TODO přesunout po vytvoření na stránku s receptem
 
-  return {
-    success: true,
-    message: "Položka se přidala",
-    redirectUrl: "/",
-  };
+  redirect("/");
 }
