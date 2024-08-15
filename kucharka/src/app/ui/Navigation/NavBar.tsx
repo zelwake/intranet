@@ -7,7 +7,7 @@ const navigation: NavLinkProps[] = [
 
 export default function NavBar() {
   return (
-    <div className="bg-blue-800 flex flex-row justify-start items-center gap-2 px-8 py-4 border-b-4 fixed w-screen top-0">
+    <div className="bg-blue-800 flex flex-row justify-start items-center gap-2 px-8 py-4  fixed w-screen top-0 shadow-lg shadow-gray-400">
       {navigation.map((n, i) => (
         <NavLink key={i} {...n} />
       ))}
