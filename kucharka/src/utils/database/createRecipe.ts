@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { HOME } from "../paths";
 
 const schema = z.object({
   title: z
@@ -46,19 +47,19 @@ export async function createRecipe(
     };
   }
 
-  const parsedData = rawFormData.data;
-  const tags = parsedData.tags.map((t) => t.trim().toLowerCase());
+  const { title, content, totalTimeInMinutes } = rawFormData.data;
+  const tags = rawFormData.data.tags.map((t) => t.trim().toLowerCase());
 
-  let redirectUrl: string = "";
-  //TODO uložit data do databáze
+  let redirectUrl = null;
+
   try {
     redirectUrl = await prisma.recipe
       .create({
         data: {
-          title: parsedData.title,
-          content: parsedData.content,
+          title,
+          content,
           photo_url: "",
-          totalTimeInMinutes: 123,
+          totalTimeInMinutes,
           TagToRecipe: {
             create: tags.map((t) => ({
               tag: {
@@ -76,11 +77,10 @@ export async function createRecipe(
       })
       .then((d) => `/${d.id}`);
   } catch (error) {
+    console.log(error);
     return null;
   }
 
-  //TODO přesunout po vytvoření na stránku s receptem
-
-  revalidatePath("/");
-  redirect(redirectUrl);
+  revalidatePath(HOME);
+  redirect(redirectUrl ?? HOME);
 }

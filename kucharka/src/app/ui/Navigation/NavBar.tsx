@@ -1,8 +1,9 @@
+import { HOME, NEW } from "@/utils/paths";
 import NavLink, { NavLinkProps } from "./NavLink";
 
 const navigation: NavLinkProps[] = [
-  { href: "/", name: "Seznam receptů" },
-  { href: "/novy", name: "Nový recept" },
+  { href: HOME, name: "Seznam receptů" },
+  { href: NEW, name: "Nový recept" },
 ];
 
 export default function NavBar() {
