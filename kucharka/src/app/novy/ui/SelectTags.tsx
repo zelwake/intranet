@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 
 export type SelectTagsProps = { tags: Tag[] };
 
-export default async function SelectTags({ tags }: SelectTagsProps) {
+export default function SelectTags({ tags }: SelectTagsProps) {
   const [tagList, setTagList] = useState(tags);
   const newTagRef = useRef<HTMLInputElement>(null);
 
@@ -14,7 +14,7 @@ export default async function SelectTags({ tags }: SelectTagsProps) {
 
         <select multiple size={6} name="tags" className="w-96 outline-none">
           {tagList.map((t) => (
-            <option value={t.id} key={t.id}>
+            <option value={t.name} key={t.id}>
               {t.name}
             </option>
           ))}
@@ -30,7 +30,7 @@ export default async function SelectTags({ tags }: SelectTagsProps) {
             if (value !== undefined && value !== "") {
               setTagList((prev) => [
                 ...prev,
-                { id: 0 - tagList.length, name: value },
+                { id: 0 - tagList.length, name: value.toLowerCase() },
               ]);
               newTagRef.current!.value = "";
             }

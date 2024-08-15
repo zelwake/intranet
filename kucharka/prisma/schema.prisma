@@ -26,7 +26,7 @@ model Recipe {
 
 model Ingredient {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
 
   ingredientToRecipe IngredientToRecipe[]
 }
@@ -45,7 +45,7 @@ model IngredientToRecipe {
 
 model Tag {
   id          Int           @id @default(autoincrement())
-  name        String
+  name        String        @unique
   TagToRecipe TagToRecipe[]
 }
 
