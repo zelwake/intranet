@@ -2,6 +2,7 @@
 
 import { createRecipe, RecipeSchemaKeys } from "@/utils/database/createRecipe";
 import { useFormState } from "react-dom";
+import NumberInput from "./NumberInput";
 import SelectTags, { SelectTagsProps } from "./SelectTags";
 import SubmitButton from "./SubmitButton";
 import TextareaInput from "./TextareaInput";
@@ -12,6 +13,8 @@ export default function Form({ tags }: SelectTagsProps) {
 
   function extractError(key: RecipeSchemaKeys): string[] | undefined {
     if (formState == null) return undefined;
+
+    console.log(formState);
 
     return formState.errors[key] ?? undefined;
   }
@@ -27,6 +30,12 @@ export default function Form({ tags }: SelectTagsProps) {
         name="content"
         text="Postup"
         errors={extractError("content")}
+      />
+
+      <NumberInput
+        name="totalTimeInMinutes"
+        text="Doba vaření v minutách"
+        errors={extractError("totalTimeInMinutes")}
       />
 
       <SelectTags tags={tags} />
