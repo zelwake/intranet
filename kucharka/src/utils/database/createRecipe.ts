@@ -5,8 +5,19 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { HOME } from "../paths";
+import { serializeIngredients } from "../scripts/serializedIngredients";
+import { AmountType } from "../types/recipeTypes";
 
-const schema = z.object({
+const keys = Object.keys(AmountType) as (keyof typeof AmountType)[];
+const kk = ["kg", "g", "l", "ml", "ks"] as const;
+
+const ingredientSchema = z.object({
+  name: z.string().min(1),
+  amountType: z.nativeEnum(AmountType),
+  amount: z.coerce.number(),
+});
+
+const recipeSchema = z.object({
   title: z
     .string({ invalid_type_error: "Neplatný název" })
     .min(5, "Název musí být delší jak 5 znaků"),
@@ -20,9 +31,13 @@ const schema = z.object({
       required_error: "Musí být vyplněno",
     })
     .gt(0, "Čas musí být pozitivní číslo"),
+  ingredientsAmount: z.coerce.number().gt(0),
+  ingredients: z
+    .array(ingredientSchema)
+    .min(1, "Musí být minimálně 1 ingredience"),
 });
 
-export type RecipeSchemaKeys = keyof z.infer<typeof schema>;
+export type RecipeSchemaKeys = keyof z.infer<typeof recipeSchema>;
 
 type RecipeErrors = Partial<Record<RecipeSchemaKeys, string[]>>;
 
@@ -34,20 +49,28 @@ export async function createRecipe(
   prevState: RecipeFormState,
   formData: FormData
 ): Promise<RecipeFormState> {
-  const rawFormData = schema.safeParse({
+  const rawFormData = recipeSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
     tags: formData.getAll("tags"),
     totalTimeInMinutes: formData.get("totalTimeInMinutes"),
+    ingredientsAmount: formData.get("ingredientsAmount"),
+    ingredients: serializeIngredients(
+      parseInt(formData.get("ingredientsAmount") as string),
+      formData
+    ),
   });
 
+  // console.log(formData);
+
   if (rawFormData.error) {
+    console.log(rawFormData.error);
     return {
       errors: rawFormData.error.flatten().fieldErrors,
     };
   }
 
-  console.log(formData);
+  console.table(rawFormData);
   return null;
 
   const { title, content, totalTimeInMinutes } = rawFormData.data;

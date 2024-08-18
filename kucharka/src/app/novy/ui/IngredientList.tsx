@@ -1,58 +1,13 @@
-import { useEffect, useReducer, useRef } from "react";
+"use client";
 
-enum AmountType {
-  "kg" = "kilogram",
-  "g" = "gram",
-  "l" = "litr",
-  "ml" = "mililitr",
-  "ks" = "kus",
-}
+import { ingredientReducer } from "@/utils/scripts/recipeReducer";
+import { AmountType, Ingredient } from "@/utils/types/recipeTypes";
+import { useReducer } from "react";
 
-type Ingredient = {
-  name: string;
-  amount: string;
-  amountType: AmountType;
-};
-
-type ActionType =
-  | { type: "ADD_INGREDIENT" }
-  | { type: "REMOVE_INGREDIENT"; index: number }
-  | { type: "UPDATE_INGREDIENT"; index: number; field: string; value: string };
-
-const initialState: Ingredient[] = [
-  { name: "", amount: "", amountType: AmountType.kg },
-];
-
-function ingredientReducer(
-  state: Ingredient[],
-  action: ActionType
-): Ingredient[] {
-  switch (action.type) {
-    case "ADD_INGREDIENT":
-      return [...state, { name: "", amount: "", amountType: AmountType.kg }];
-    case "REMOVE_INGREDIENT":
-      return state.filter((_, index) => index !== action.index);
-    case "UPDATE_INGREDIENT":
-      return state.map((ingredient, index) =>
-        index === action.index
-          ? { ...ingredient, [action.field]: action.value }
-          : ingredient
-      );
-
-    default:
-      return state;
-  }
-}
+const initialState: Ingredient[] = [{ name: "", amount: "", amountType: "kg" }];
 
 export default function IngredientList() {
   const [ingredients, dispatch] = useReducer(ingredientReducer, initialState);
-  const hiddenInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (hiddenInputRef.current) {
-      hiddenInputRef.current.value = JSON.stringify(ingredients);
-    }
-  }, [ingredients]);
 
   const handleIngredientChange = (
     index: number,
@@ -70,8 +25,6 @@ export default function IngredientList() {
     dispatch({ type: "REMOVE_INGREDIENT", index });
   };
 
-  // TODO dostat data na server
-  // TODO možná z nich udělat json? ještě nevím jak to prohnat přes zod
   // TODO přidávat řádky jenom když jsou všechny zaplněný + možnost odebrat řádek
 
   return (
@@ -90,9 +43,11 @@ export default function IngredientList() {
               type="number"
               step="0.1"
               value={ingredient.amount}
+              name={`ingredientAmount_${i}`}
               onChange={(e) =>
                 handleIngredientChange(i, "amount", e.target.value)
               }
+              required
             />
           </label>
           <select
@@ -101,6 +56,8 @@ export default function IngredientList() {
             onChange={(e) =>
               handleIngredientChange(i, "amountType", e.target.value)
             }
+            required
+            name={`ingredientAmountType_${i}`}
           >
             {Array.from(Object.entries(AmountType)).map(([key, value]) => (
               <option value={key} key={key}>
@@ -110,11 +67,13 @@ export default function IngredientList() {
           </select>
           <label className="col-span-2">
             <input
+              required
               className="w-full"
               value={ingredient.name}
               onChange={(e) =>
                 handleIngredientChange(i, "name", e.target.value)
               }
+              name={`ingredientName_${i}`}
             />
           </label>
           <button
@@ -141,7 +100,11 @@ export default function IngredientList() {
         +
       </button>
 
-      <input type="hidden" name="ingredients" ref={hiddenInputRef} />
+      <input
+        type="hidden"
+        name="ingredientsAmount"
+        value={ingredients.length}
+      />
     </div>
   );
 }
