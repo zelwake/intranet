@@ -3,47 +3,9 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-import { HOME } from "../paths";
+import { HOME, RECIPE_ID } from "../paths";
 import { serializeIngredients } from "../scripts/serializedIngredients";
-import { AmountType } from "../types/recipeTypes";
-
-const keys = Object.keys(AmountType) as Array<keyof typeof AmountType>;
-const enumValues = keys as [keyof typeof AmountType];
-
-const ingredientSchema = z.object({
-  name: z.string().min(1),
-  amountType: z.enum(enumValues),
-  amount: z.coerce.number(),
-});
-
-const recipeSchema = z.object({
-  title: z
-    .string({ invalid_type_error: "Neplatný název" })
-    .min(5, "Název musí být delší jak 5 znaků"),
-  content: z
-    .string({ invalid_type_error: "Neplatný text popisu" })
-    .min(20, "Popis musí obsahovat nejméně 20 znaků"),
-  tags: z.string({ invalid_type_error: "Neplatný typ tagu" }).array(),
-  totalTimeInMinutes: z.coerce
-    .number({
-      invalid_type_error: "Musí být číslo",
-      required_error: "Musí být vyplněno",
-    })
-    .gt(0, "Čas musí být pozitivní číslo"),
-  ingredientsAmount: z.coerce.number().gt(0),
-  ingredients: z
-    .array(ingredientSchema)
-    .min(1, "Musí být minimálně 1 ingredience"),
-});
-
-export type RecipeSchemaKeys = keyof z.infer<typeof recipeSchema>;
-
-type RecipeErrors = Partial<Record<RecipeSchemaKeys, string[]>>;
-
-export type RecipeFormState = null | {
-  errors: RecipeErrors;
-};
+import { RecipeFormState, recipeSchema } from "../types/recipeTypes";
 
 export async function createRecipe(
   prevState: RecipeFormState,
@@ -61,20 +23,18 @@ export async function createRecipe(
     ),
   });
 
-  // console.log(formData);
-
   if (rawFormData.error) {
-    console.log(rawFormData.error);
     return {
       errors: rawFormData.error.flatten().fieldErrors,
     };
   }
 
-  console.table(rawFormData);
-  return null;
-
   const { title, content, totalTimeInMinutes } = rawFormData.data;
   const tags = rawFormData.data.tags.map((t) => t.trim().toLowerCase());
+  const ingredients = rawFormData.data.ingredients.map((i) => ({
+    ...i,
+    name: i.name.trim().toLowerCase(),
+  }));
 
   let redirectUrl = null;
 
@@ -96,12 +56,24 @@ export async function createRecipe(
               },
             })),
           },
+          ingredientToRecipe: {
+            create: ingredients.map((i) => ({
+              ingredient: {
+                connectOrCreate: {
+                  where: { name: i.name },
+                  create: { name: i.name },
+                },
+              },
+              ingredientAmount: i.amount,
+              ingredientAmountType: i.amountType,
+            })),
+          },
         },
         select: {
           id: true,
         },
       })
-      .then((d) => `/${d.id}`);
+      .then((d) => RECIPE_ID(d.id));
   } catch (error) {
     console.log(error);
     return null;

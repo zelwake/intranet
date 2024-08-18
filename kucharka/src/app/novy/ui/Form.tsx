@@ -1,6 +1,7 @@
 "use client";
 
-import { createRecipe, RecipeSchemaKeys } from "@/utils/database/createRecipe";
+import { createRecipe } from "@/utils/database/createRecipe";
+import { RecipeSchemaKeys } from "@/utils/types/recipeTypes";
 import { useFormState } from "react-dom";
 import IngredientList from "./IngredientList";
 import NumberInput from "./NumberInput";
@@ -27,7 +28,7 @@ export default function Form({ tags }: SelectTagsProps) {
     >
       <TextInput name="title" text="Název" errors={extractError("title")} />
 
-      <IngredientList />
+      <IngredientList errors={extractError("ingredients")} />
 
       <TextareaInput
         name="content"

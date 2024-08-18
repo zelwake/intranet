@@ -4,9 +4,13 @@ import { ingredientReducer } from "@/utils/scripts/recipeReducer";
 import { AmountType, Ingredient } from "@/utils/types/recipeTypes";
 import { useReducer } from "react";
 
+type IngredientListProps = {
+  errors?: string[];
+};
+
 const initialState: Ingredient[] = [{ name: "", amount: "", amountType: "kg" }];
 
-export default function IngredientList() {
+export default function IngredientList({ errors }: IngredientListProps) {
   const [ingredients, dispatch] = useReducer(ingredientReducer, initialState);
 
   const handleIngredientChange = (
@@ -28,7 +32,7 @@ export default function IngredientList() {
   // TODO přidávat řádky jenom když jsou všechny zaplněný + možnost odebrat řádek
 
   return (
-    <div className="grid grid-cols-4 gap-1">
+    <div className="grid grid-cols-4 gap-1 relative">
       <div className="grid grid-cols-subgrid col-span-4">
         <p>Množství</p>
         <p>Jednotka</p>
@@ -105,6 +109,12 @@ export default function IngredientList() {
         name="ingredientsAmount"
         value={ingredients.length}
       />
+
+      {errors && (
+        <p className="absolute -bottom-6 text-red-600 text-sm place-self-center">
+          {errors.join(", ")}
+        </p>
+      )}
     </div>
   );
 }
