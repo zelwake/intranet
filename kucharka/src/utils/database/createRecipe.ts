@@ -8,12 +8,12 @@ import { HOME } from "../paths";
 import { serializeIngredients } from "../scripts/serializedIngredients";
 import { AmountType } from "../types/recipeTypes";
 
-const keys = Object.keys(AmountType) as (keyof typeof AmountType)[];
-const kk = ["kg", "g", "l", "ml", "ks"] as const;
+const keys = Object.keys(AmountType) as Array<keyof typeof AmountType>;
+const enumValues = keys as [keyof typeof AmountType];
 
 const ingredientSchema = z.object({
   name: z.string().min(1),
-  amountType: z.nativeEnum(AmountType),
+  amountType: z.enum(enumValues),
   amount: z.coerce.number(),
 });
 
