@@ -1,10 +1,12 @@
+import { ReactNode } from "react";
+
 export type BaseInputProps = {
   text: string;
   errors?: string[];
 };
 
 type ExtendedBaseInputProps = BaseInputProps & {
-  children: React.ReactNode[];
+  children: ReactNode;
 };
 
 export default function BaseInput({

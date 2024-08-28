@@ -1,9 +1,9 @@
+import BaseInput from "@/app/ui/Input/BaseInput";
 import { TextInputProps } from "./TextInput";
 
 export default function TextareaInput({ name, text, errors }: TextInputProps) {
   return (
-    <label className="relative">
-      <p>{text}</p>
+    <BaseInput text={text} errors={errors}>
       <textarea
         rows={8}
         cols={37}
@@ -11,7 +11,6 @@ export default function TextareaInput({ name, text, errors }: TextInputProps) {
         required
         className="resize-y py-2 px-4 outline-none"
       />
-      <p className="absolute -bottom-5 text-red-600">{errors?.join(", ")}</p>
-    </label>
+    </BaseInput>
   );
 }

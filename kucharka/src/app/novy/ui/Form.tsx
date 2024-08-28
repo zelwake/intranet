@@ -3,6 +3,7 @@
 import { createRecipe } from "@/utils/database/createRecipe";
 import { RecipeSchemaKeys } from "@/utils/types/recipeTypes";
 import { useFormState } from "react-dom";
+import FileInput from "./FileInput";
 import IngredientList from "./IngredientList";
 import NumberInput from "./NumberInput";
 import SelectTags, { SelectTagsProps } from "./SelectTags";
@@ -28,10 +29,11 @@ export default function Form({ tags }: SelectTagsProps) {
     >
       <TextInput name="title" text="Název" errors={extractError("title")} />
 
-      <label>
-        Fotografie:
-        <input type="file" name="photo" accept="image/*" />
-      </label>
+      <FileInput
+        name="photo"
+        text="Fotografie"
+        errors={extractError("photo")}
+      />
 
       <IngredientList errors={extractError("ingredients")} />
 

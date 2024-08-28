@@ -36,6 +36,26 @@ export const ingredientSchema = z.object({
   amount: z.coerce.number(),
 });
 
+const MAX_FILE_SIZE = 50000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+export const fileSchema = z
+  .any()
+  .refine((file) => file?.length !== 0, "Vyberte prosím soubor")
+  .refine((file) => {
+    console.log(file);
+    return file?.size <= MAX_FILE_SIZE;
+  }, "Maximální velikost je 50MB")
+  .refine(
+    (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+    "Soubor může být pouze .jpg, .jpeg, .png a .webp"
+  );
+
 export const recipeSchema = z.object({
   title: z
     .string({ invalid_type_error: "Neplatný název" })
@@ -54,6 +74,8 @@ export const recipeSchema = z.object({
   ingredients: z
     .array(ingredientSchema)
     .min(1, "Musí být minimálně 1 ingredience"),
+  photo: fileSchema,
+  photoName: z.string(),
 });
 
 export type RecipeSchemaKeys = keyof z.infer<typeof recipeSchema>;
