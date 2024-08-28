@@ -28,6 +28,11 @@ export default function Form({ tags }: SelectTagsProps) {
     >
       <TextInput name="title" text="Název" errors={extractError("title")} />
 
+      <label>
+        Fotografie:
+        <input type="file" name="photo" accept="image/*" />
+      </label>
+
       <IngredientList errors={extractError("ingredients")} />
 
       <TextareaInput
