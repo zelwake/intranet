@@ -1,4 +1,5 @@
 import { getRecipeData } from "@/utils/database/getRecipeData";
+import Image from "next/image";
 import Header from "./ui/Sections/Header";
 
 export default async function Home() {
@@ -7,13 +8,27 @@ export default async function Home() {
     <>
       <Header text="Seznam receptů" />
       <section className="grid grid-cols-2 items-center p-10">
-        {data.map((e) => (
-          <div key={e.id} className="p-5 text-lime-200 flex flex-col gap-2">
-            <h3 className="text-lg font-bold uppercase">{e.title}</h3>
+        {data.map((recipe) => (
+          <div
+            key={recipe.id}
+            className="p-5 text-lime-200 flex flex-col gap-2"
+          >
+            <h3 className="text-lg font-bold uppercase">{recipe.title}</h3>
+            <Image
+              src={
+                recipe.photo_url
+                  ? `/images/${recipe.photo_url}`
+                  : "/images/stock.jpg"
+              }
+              alt={recipe.title}
+              width={128}
+              height={128}
+              className="h-auto"
+            />
             <p>Popis:</p>
-            <p>{e.content}</p>
+            <p>{recipe.content}</p>
 
-            <p>Čas přípravy je {e.totalTimeInMinutes} minut</p>
+            <p>Čas přípravy je {recipe.totalTimeInMinutes} minut</p>
             <table>
               <thead>
                 <tr>
@@ -21,11 +36,11 @@ export default async function Home() {
                 </tr>
               </thead>
               <tbody>
-                {e.ingredientToRecipe.map((i) => (
-                  <tr key={i.ingredient.id}>
-                    <td>{i.ingredient.name}</td>
+                {recipe.ingredientToRecipe.map((itr) => (
+                  <tr key={itr.ingredient.id}>
+                    <td>{itr.ingredient.name}</td>
                     <td>
-                      {i.ingredientAmount} {i.ingredientAmountType}
+                      {itr.ingredientAmount} {itr.ingredientAmountType}
                     </td>
                   </tr>
                 ))}
@@ -33,13 +48,13 @@ export default async function Home() {
             </table>
             <section className="flex gap-2 flex-wrap justify-start">
               <h4>Tagy:</h4>
-              {e.TagToRecipe.map((t) => {
+              {recipe.TagToRecipe.map((ttr) => {
                 return (
                   <p
-                    key={t.tag.id}
+                    key={ttr.tag.id}
                     className="underline cursor-pointer hover:text-lime-50 transition-colors"
                   >
-                    {t.tag.name}
+                    {ttr.tag.name}
                   </p>
                 );
               })}
