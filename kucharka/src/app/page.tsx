@@ -4,8 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "./ui/Sections/Header";
 
-export default async function Home() {
-  const data = await getRecipeData();
+export type HomeProps = {
+  searchParams: {
+    [key: string]: string | undefined;
+  };
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+  const data = await getRecipeData(searchParams);
+
   return (
     <>
       <Header text="Seznam receptů" />
