@@ -1,16 +1,11 @@
-import { Ingredient, IngredientToRecipe, Recipe } from "@prisma/client";
+import { getRecipeDataById } from "@/utils/database/getRecipeDataById";
+import { AsyncReturnType } from "@/utils/types/AsyncReturnType";
 import Content from "./ui/Content";
 import Header from "./ui/Header";
 import Table from "./ui/Table";
 
-type IngredientToRecipeWithIngredient = IngredientToRecipe & {
-  ingredient: Ingredient;
-};
-
 export type RecipeInfoProps = {
-  recipeData: Recipe & {
-    ingredientToRecipe: IngredientToRecipeWithIngredient[];
-  };
+  recipeData: AsyncReturnType<typeof getRecipeDataById>;
 };
 
 export default function RecipeInfo({ recipeData }: RecipeInfoProps) {
