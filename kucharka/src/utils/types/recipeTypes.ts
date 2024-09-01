@@ -8,6 +8,8 @@ export enum AmountType {
   ks = "kus",
 }
 
+export type AmountTypeKeys = keyof typeof AmountType;
+
 export type Ingredient = {
   name: string;
   amount: string;
