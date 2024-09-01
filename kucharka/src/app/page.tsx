@@ -16,25 +16,26 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <>
       <Header text="Seznam receptů" />
-      <section className="grid grid-cols-2 items-center p-10">
+      <section className="grid grid-cols-2 items-start p-10">
         {data.map((recipe) => (
-          <Link
-            href={RECIPE_ID(recipe.id)}
+          <div
             key={recipe.id}
             className="p-5 text-lime-200 flex flex-col gap-2"
           >
-            <h3 className="text-lg font-bold uppercase">{recipe.title}</h3>
-            <Image
-              src={
-                recipe.photo_url
-                  ? `/images/${recipe.photo_url}`
-                  : "/images/stock.jpg"
-              }
-              alt={recipe.title}
-              width={196}
-              height={196}
-              className="h-auto"
-            />
+            <Link href={RECIPE_ID(recipe.id)}>
+              <h3 className="text-lg font-bold uppercase">{recipe.title}</h3>
+              <Image
+                src={
+                  recipe.photo_url
+                    ? `/images/${recipe.photo_url}`
+                    : "/images/stock.jpg"
+                }
+                alt={recipe.title}
+                width={196}
+                height={196}
+                className="h-auto mt-2"
+              />
+            </Link>
 
             <p>Čas přípravy je {recipe.totalTimeInMinutes} minut</p>
             <table>
@@ -69,7 +70,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 );
               })}
             </section>
-          </Link>
+          </div>
         ))}
       </section>
     </>
