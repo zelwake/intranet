@@ -1,0 +1,16 @@
+.contentWrapper ol {
+  @apply list-decimal list-inside font-medium;
+}
+
+.contentWrapper ol li {
+  @apply mt-4 max-w-2xl;
+}
+
+.contentWrapper ol li::marker {
+  @apply text-cyan-400 font-normal text-lg;
+}
+
+.contentWrapper ol li p strong,
+.contentWrapper ol li p h4 {
+  @apply text-xl text-emerald-400;
+}

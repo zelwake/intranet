@@ -1,3 +1,5 @@
+"use client";
+
 import { AmountType, AmountTypeKeys } from "@/utils/types/recipeTypes";
 import { RecipeInfoProps } from "../RecipeInfo";
 
@@ -19,7 +21,7 @@ export default function Table({
   }
 
   return (
-    <table className="mt-10 max-w-2xl">
+    <table className="mt-10 max-w-2xl flex-grow gap-4">
       <thead>
         <tr>
           <th colSpan={4}>

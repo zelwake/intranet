@@ -1,6 +1,5 @@
-"use client";
-
 import { Ingredient, IngredientToRecipe, Recipe } from "@prisma/client";
+import Content from "./ui/Content";
 import Header from "./ui/Header";
 import Table from "./ui/Table";
 
@@ -21,8 +20,7 @@ export default function RecipeInfo({ recipeData }: RecipeInfoProps) {
 
       <Table ingredientToRecipe={recipeData.ingredientToRecipe} />
 
-      <h2 className="mt-10">Postup</h2>
-      <p>{recipeData.content}</p>
+      <Content content={recipeData.content} />
     </>
   );
 }

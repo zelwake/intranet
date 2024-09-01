@@ -13,7 +13,7 @@ export default async function Recipe({ params }: DynamicRouteSlugProps) {
     );
 
   return (
-    <section className="text-white flex flex-col px-20">
+    <section className="text-white flex flex-col items-center lg:px-20 pb-20">
       <RecipeInfo recipeData={recipeData} />
     </section>
   );
