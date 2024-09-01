@@ -1,5 +1,7 @@
 import { getRecipeData } from "@/utils/database/getRecipeData";
+import { RECIPE_ID } from "@/utils/paths";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "./ui/Sections/Header";
 
 export default async function Home() {
@@ -9,7 +11,8 @@ export default async function Home() {
       <Header text="Seznam receptů" />
       <section className="grid grid-cols-2 items-center p-10">
         {data.map((recipe) => (
-          <div
+          <Link
+            href={RECIPE_ID(recipe.id)}
             key={recipe.id}
             className="p-5 text-lime-200 flex flex-col gap-2"
           >
@@ -21,18 +24,18 @@ export default async function Home() {
                   : "/images/stock.jpg"
               }
               alt={recipe.title}
-              width={128}
-              height={128}
+              width={196}
+              height={196}
               className="h-auto"
             />
-            <p>Popis:</p>
-            <p>{recipe.content}</p>
 
             <p>Čas přípravy je {recipe.totalTimeInMinutes} minut</p>
             <table>
               <thead>
                 <tr>
-                  <th colSpan={2}>Ingredience:</th>
+                  <th colSpan={2} className="text-left">
+                    Ingredience:
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -59,7 +62,7 @@ export default async function Home() {
                 );
               })}
             </section>
-          </div>
+          </Link>
         ))}
       </section>
     </>

@@ -13,7 +13,7 @@ export default function Header({ photo_url, title }: HeaderProps) {
         height={900}
         className="h-auto max-w-72"
       />
-      <h1 className="text-3xl">{title}</h1>
+      <h1 className="text-3xl uppercase">{title}</h1>
     </header>
   );
 }

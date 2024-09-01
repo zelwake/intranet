@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 
 export const getRecipeData = async () => {
   const data = await prisma.recipe.findMany({
-    include: {
+    select: {
       TagToRecipe: {
         select: {
           tag: true,
@@ -17,6 +17,10 @@ export const getRecipeData = async () => {
           ingredientAmountType: true,
         },
       },
+      id: true,
+      photo_url: true,
+      title: true,
+      totalTimeInMinutes: true,
     },
   });
 
