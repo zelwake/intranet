@@ -1,9 +1,8 @@
 import { RECIPE_ID } from "@/utils/paths";
+import { PickFromArray } from "@/utils/types/generics";
 import Image from "next/image";
 import Link from "next/link";
 import { ListProps } from "./List";
-
-type PickFromArray<T extends any[], K extends keyof any> = Pick<T[number], K>;
 
 type HeaderLinkProps = PickFromArray<
   ListProps["data"],
