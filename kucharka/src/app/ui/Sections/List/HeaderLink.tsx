@@ -2,7 +2,7 @@ import { RECIPE_ID } from "@/utils/paths";
 import { PickFromArray } from "@/utils/types/generics";
 import Image from "next/image";
 import Link from "next/link";
-import { ListProps } from "./List";
+import { ListProps } from "../List";
 
 type HeaderLinkProps = PickFromArray<
   ListProps["data"],
