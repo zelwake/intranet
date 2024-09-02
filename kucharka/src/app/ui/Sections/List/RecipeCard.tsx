@@ -7,14 +7,13 @@ export type RecipeCardProps = InferFromArray<ListProps["data"]>;
 export default function RecipeCard({
   TagToRecipe,
   ingredientToRecipe,
-  totalTimeInMinutes,
+  // totalTimeInMinutes,
   ...props
 }: RecipeCardProps) {
   return (
     <li className="p-5 text-lime-200 flex flex-col gap-2">
       <HeaderLink {...props} />
 
-      <p>Čas přípravy je {totalTimeInMinutes} minut</p>
       <table>
         <thead>
           <tr>
