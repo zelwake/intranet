@@ -18,7 +18,7 @@ export default function HeaderLink({
 }: HeaderLinkProps) {
   return (
     <section className=" grid grid-rows-subgrid row-span-2 items-start">
-      <Link href={RECIPE_ID(id)}>
+      <Link href={RECIPE_ID(id)} className="place-self-start">
         <h3 className="text-lg font-bold uppercase">{title}</h3>
         <Image
           src={photo_url ? `/images/${photo_url}` : "/images/stock.jpg"}
