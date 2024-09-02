@@ -17,7 +17,7 @@ export default function HeaderLink({
   totalTimeInMinutes,
 }: HeaderLinkProps) {
   return (
-    <section className="space-y-2">
+    <section className=" grid grid-rows-subgrid row-span-2 items-start">
       <Link href={RECIPE_ID(id)}>
         <h3 className="text-lg font-bold uppercase">{title}</h3>
         <Image

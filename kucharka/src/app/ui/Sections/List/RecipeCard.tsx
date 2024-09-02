@@ -11,7 +11,7 @@ export default function RecipeCard({
   ...props
 }: RecipeCardProps) {
   return (
-    <li className="p-5 text-lime-200 flex flex-col gap-2">
+    <li className="p-5 text-lime-200 grid grid-rows-subgrid row-span-4 gap-2">
       <HeaderLink {...props} />
 
       <Table ingredientToRecipe={ingredientToRecipe} />
