@@ -101,7 +101,6 @@ export async function createRecipe(
     };
   }
 
-  console.log(redirectUrl);
   revalidatePath(HOME);
   redirect(redirectUrl ?? HOME);
 }

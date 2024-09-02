@@ -1,11 +1,11 @@
 import { RECIPE_ID } from "@/utils/paths";
 import { formatTimeWithMinutes } from "@/utils/scripts/formatTimeWithMinutes";
-import { PickFromArray } from "@/utils/types/generics";
+import { PickFromArrayElement } from "@/utils/types/generics";
 import Image from "next/image";
 import Link from "next/link";
 import { ListProps } from "../List";
 
-type HeaderLinkProps = PickFromArray<
+type HeaderLinkProps = PickFromArrayElement<
   ListProps["data"],
   "id" | "title" | "photo_url" | "totalTimeInMinutes"
 >;

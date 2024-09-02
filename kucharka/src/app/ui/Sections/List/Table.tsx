@@ -1,7 +1,7 @@
-import { PickFromArray } from "@/utils/types/generics";
-import { ListProps } from "../List";
+import { RecipeCardProps } from "./RecipeCard";
+import TableRow from "./TableRow";
 
-export type TableProps = PickFromArray<ListProps["data"], "ingredientToRecipe">;
+export type TableProps = Pick<RecipeCardProps, "ingredientToRecipe">;
 
 export default function Table({ ingredientToRecipe }: TableProps) {
   return (
@@ -9,7 +9,7 @@ export default function Table({ ingredientToRecipe }: TableProps) {
       <thead>
         <tr>
           <th
-            colSpan={2}
+            colSpan={3}
             className="text-left font-light underline underline-offset-2 text-lime-400"
           >
             Ingredience:
@@ -18,12 +18,7 @@ export default function Table({ ingredientToRecipe }: TableProps) {
       </thead>
       <tbody>
         {ingredientToRecipe.map((itr) => (
-          <tr key={itr.ingredient.id}>
-            <td>{itr.ingredient.name}</td>
-            <td>
-              {itr.ingredientAmount} {itr.ingredientAmountType}
-            </td>
-          </tr>
+          <TableRow key={itr.ingredient.id} {...itr} />
         ))}
       </tbody>
     </table>
