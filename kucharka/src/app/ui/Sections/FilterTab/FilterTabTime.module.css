@@ -1,0 +1,15 @@
+.inputWrapper {
+  @apply mt-4;
+}
+
+.inputWrapper input::-webkit-slider-thumb {
+  @apply border-none rounded-[50%] shadow-sm shadow-teal-300 cursor-pointer h-5 w-5 mt-1.5 pointer-events-auto relative bg-teal-100;
+}
+.inputWrapper input::-moz-range-thumb {
+  @apply border-none rounded-[50%] shadow-sm shadow-teal-300 cursor-pointer h-5 w-5 mt-1 pointer-events-auto relative bg-teal-100;
+}
+
+.inputWrapper input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}

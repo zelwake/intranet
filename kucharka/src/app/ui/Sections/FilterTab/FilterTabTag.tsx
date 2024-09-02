@@ -1,14 +1,15 @@
 "use client";
 
+import { getIngredients } from "@/utils/database/getIngredients";
+import { AsyncReturnType } from "@/utils/types/AsyncReturnType";
 import { ArrayElement } from "@/utils/types/generics";
 import { usePathname, useRouter } from "next/navigation";
 import { useCreateQueryString } from "../List/useCreateQueryString";
-import { FilterTabProps } from "./FilterTab";
 
 export default function FilterTabTag({
   id,
   name,
-}: ArrayElement<FilterTabProps["tagData"]>) {
+}: ArrayElement<AsyncReturnType<typeof getIngredients>>) {
   const router = useRouter();
   const pathname = usePathname();
   const [createQueryString, isPresentInQueryString] = useCreateQueryString(
