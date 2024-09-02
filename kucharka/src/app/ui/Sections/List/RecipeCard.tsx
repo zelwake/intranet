@@ -1,38 +1,21 @@
-import { InferFromArray } from "@/utils/types/generics";
+import { ArrayElement } from "@/utils/types/generics";
 import { ListProps } from "../List";
 import HeaderLink from "./HeaderLink";
+import Table from "./Table";
 
-export type RecipeCardProps = InferFromArray<ListProps["data"]>;
+export type RecipeCardProps = ArrayElement<ListProps["data"]>;
 
 export default function RecipeCard({
   TagToRecipe,
   ingredientToRecipe,
-  // totalTimeInMinutes,
   ...props
 }: RecipeCardProps) {
   return (
     <li className="p-5 text-lime-200 flex flex-col gap-2">
       <HeaderLink {...props} />
 
-      <table>
-        <thead>
-          <tr>
-            <th colSpan={2} className="text-left">
-              Ingredience:
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {ingredientToRecipe.map((itr) => (
-            <tr key={itr.ingredient.id}>
-              <td>{itr.ingredient.name}</td>
-              <td>
-                {itr.ingredientAmount} {itr.ingredientAmountType}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table ingredientToRecipe={ingredientToRecipe} />
+
       <section className="flex gap-2 flex-wrap justify-start">
         <h4>Tagy:</h4>
         {TagToRecipe.map((ttr) => {
