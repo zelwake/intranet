@@ -1,4 +1,6 @@
 import { getRecipeData } from "@/utils/database/getRecipeData";
+import { getTags } from "@/utils/database/getTags";
+import FilterTab from "./ui/Sections/FilterTab/FilterTab";
 import Header from "./ui/Sections/Header";
 import List from "./ui/Sections/List";
 
@@ -9,12 +11,16 @@ export type HomeProps = {
 };
 
 export default async function Home({ searchParams }: HomeProps) {
-  const data = await getRecipeData(searchParams);
+  const recipeData = await getRecipeData(searchParams);
+  const tagData = await getTags();
 
   return (
     <>
       <Header text="Seznam receptů" />
-      <List data={data} />
+
+      <FilterTab data={tagData} />
+
+      <List data={recipeData} />
     </>
   );
 }

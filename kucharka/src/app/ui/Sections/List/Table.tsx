@@ -16,7 +16,7 @@ export default function Table({ ingredientToRecipe }: TableProps) {
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="align-top">
         {ingredientToRecipe.map((itr) => (
           <TableRow key={itr.ingredient.id} {...itr} />
         ))}
